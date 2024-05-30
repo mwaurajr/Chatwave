@@ -1,0 +1,120 @@
+name: Chatwave CI
+
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: [main]
+  workflow_call:
+
+concurrency: ci-${{ github.ref }}
+
+jobs:
+  lint:
+    name: Lint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -yqq libvips
+
+      - name: Bundle install
+        run: bundle install
+
+      - name: Standardize
+        run: bundle exec standardrb
+
+      - name: Erb Lint
+        run: bundle exec erblint --lint-all
+
+  test:
+    name: Test
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      postgres:
+        image: postgres:14
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -yqq libvips
+
+      - name: Bundle install
+        run: bundle install
+
+      - name: Prepare database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/chatwave_test
+          RAILS_MASTER_KEY: ${{ env.TEST_RAILS_MASTER_KEY }}
+
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+
+      - name: Precompile assets
+        run: |
+          bin/rails assets:precompile
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/chatwave_test
+          RAILS_MASTER_KEY: ${{ env.TEST_RAILS_MASTER_KEY }}
+
+        run: |
+          bin/rails test --fail-fast
+          bin/rails test
+
+      - name: Smoke test database seeds
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/chatwave_test
+          RAILS_MASTER_KEY: ${{ env.TEST_RAILS_MASTER_KEY }}
+
+        run: bin/rails db:reset
+
+      # TODO: Set up the mailer
+      # - name: Verify mailer previews
+      #   env:
+      #     RAILS_ENV: test
+      #     DATABASE_URL: postgres://postgres:password@localhost:5432/chatwave_test
+      #     RAILS_MASTER_KEY: ${{ env.TEST_RAILS_MASTER_KEY }}
+
+      #   run: bin/rails verify_mailer_previews
