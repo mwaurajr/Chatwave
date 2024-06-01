@@ -36,12 +36,6 @@ gem "redis", "~> 5.0"
 # A flexible authentication solution for Rails based on Warden
 gem "devise"
 
-# Controlled access to features
-gem "flipper"
-gem "flipper-active_record"
-gem "flipper-active_support_cache_store"
-gem "flipper-ui"
-
 # Internal admin dashboard
 gem "administrate"
 
