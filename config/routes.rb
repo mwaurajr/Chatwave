@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "home#index"
   devise_for :users
   get "/verify" => "verify#edit", :as => "verify"
   get "/verify" => "verify#new", :as => "new_verify"
