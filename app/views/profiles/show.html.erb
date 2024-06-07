@@ -1,0 +1,143 @@
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-100 dark:bg-gray-900">
+  <% if @profile.user == current_user %>
+    <!-- Chat List (Left Side on large screens) -->
+    <div class="hidden md:block w-full md:w-1/3 lg:w-1/4 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+      <!-- Render chat list partial -->
+      <%= render "chat_list" %>
+    </div>
+
+    <!-- Profile Details (Right Side) -->
+    <div class="w-full md:w-2/3 lg:w-3/4 max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+      <div class="border-b px-4 pb-6">
+        <div class="text-center my-4">
+          <img class="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4" src="https://randomuser.me/api/portraits/women/21.jpg" alt="Profile Picture">
+          <div class="py-2">
+            <h3 class="font-bold text-2xl text-gray-800 dark:text-white mb-1"><%= @profile.username %> (You)</h3>
+            <div class="inline-flex text-gray-700 dark:text-gray-300 items-center">
+              <%= @profile.user.email %>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 px-2">
+          <button class="flex-1 cursor-pointer rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2">
+            Message
+          </button>
+        </div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <button class="flex items-center text-gray-800 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm12.93-3.36a7.05 7.05 0 00-9.86 0 1 1 0 001.41 1.41 5.05 5.05 0 017.05 0 1 1 0 001.41-1.41zM10 12a2 2 0 100-4 2 2 0 000 4z" />
+              </svg>
+              Media Visibility
+            </button>
+          </div>
+          <div class="flex items-center justify-between">
+            <a href="#" class="flex items-center text-gray-800 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm7 13H7v-1h6v1zm0-3H7V7h6v5z" clip-rule="evenodd" />
+              </svg>
+              Disappearing Messages
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+    <div class="hidden md:block w-full md:w-1/3 lg:w-1/4 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+      <%= render "chat_list" %>
+    </div>
+
+    <!-- Profile Details (Right Side) -->
+    <div class="w-full md:w-2/3 lg:w-3/4 max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+      <div class="border-b px-4 pb-6">
+        <div class="text-center my-4">
+          <img class="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4" src="https://randomuser.me/api/portraits/women/21.jpg" alt="Profile Picture">
+          <div class="py-2">
+            <h3 class="font-bold text-2xl text-gray-800 dark:text-white mb-1"><%= @profile.username %></h3>
+            <div class="inline-flex text-gray-700 dark:text-gray-300 items-center">
+              <%= @profile.user.email %>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 px-2">
+          <button class="flex-1 cursor-pointer rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2">
+            Message
+          </button>
+          <button class="flex-1 cursor-pointer rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2">
+            Video
+          </button>
+          <button class="flex-1 cursor-pointer rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2">
+            Audio
+          </button>
+        </div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <button class="flex items-center text-gray-800 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm12.93-3.36a7.05 7.05 0 00-9.86 0 1 1 0 001.41 1.41 5.05 5.05 0 017.05 0 1 1 0 001.41-1.41zM10 12a2 2 0 100-4 2 2 0 000 4z" />
+              </svg>
+              Notifications and sounds
+            </button>
+          </div>
+          <div class="flex items-center justify-between">
+            <a href="#" class="flex items-center text-gray-800 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm12.93-3.36a7.05 7.05 0 00-9.86 0 1 1 0 001.41 1.41 5.05 5.05 0 017.05 0 1 1 0 001.41-1.41zM10 12a2 2 0 100-4 2 2 0 000 4z" />
+              </svg>
+              Media Visibility
+            </a>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center text-gray-800 dark:text-gray-300 bg-white dark:bg-gray-900 p-2 rounded-md">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="h-10 w-10 inline-block mr-2" viewBox="0 0 512 512" version="1.1" id="Layer_1" xml:space="preserve">
+                <path style="fill:#C7CFE2;" d="M365.463,283.767c-18.849,0-34.13-15.281-34.13-34.13V143.593c0-41.539-33.795-75.332-75.332-75.332  c-41.539,0-75.333,33.795-75.333,75.332v106.044c0,18.849-15.281,34.13-34.13,34.13s-34.13-15.281-34.13-34.13V143.593  C112.408,64.416,176.823,0,256,0s143.592,64.416,143.592,143.592v106.044C399.594,268.486,384.312,283.767,365.463,283.767z" />
+                <g style="opacity:0.1;">
+                  <path d="M146.538,283.767c18.849,0,34.13-15.281,34.13-34.13v-76.023h-68.26v76.023   C112.408,268.486,127.688,283.767,146.538,283.767z" />
+                  <path d="M331.333,173.614v76.023c0,18.849,15.281,34.13,34.13,34.13s34.13-15.281,34.13-34.13v-76.023H331.333z" />
+                </g>
+                <path style="fill:#807F7E;" d="M404.055,207.745H107.945c-17.577,0-31.825,14.249-31.825,31.825v240.605  c0,17.577,14.248,31.825,31.825,31.825h296.111c17.577,0,31.825-14.248,31.825-31.825V239.57  C435.882,221.993,421.632,207.745,404.055,207.745z" />
+                <path style="opacity:0.1;enable-background:new    ;" d="M295.213,337.119c0-21.657-17.557-39.213-39.213-39.213  s-39.213,17.557-39.213,39.213c0,12.519,5.874,23.66,15.009,30.839v74.598h48.408v-74.598  C289.338,360.778,295.213,349.638,295.213,337.119z" />
+              </svg>
+              <div>
+                <span class="text-gray-100">Encryption</span>
+                <p class="text-sm text-gray-100">The messages and calls of this chat are end-to-end encrypted. Tap to learn more</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <h6 class="text-white font-semi-bold">Groups in common</h6>
+          <ul role="list">
+            <li class="flex gap-x-4 py-5">
+              <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <div class="min-w-0">
+                <p class="text-sm font-semibold leading-6 text-white">Leslie Alexander</p>
+                <p class="mt-1 truncate text-xs leading-5 text-white">leslie.alexander@example.com</p>
+              </div>
+            </li>
+            <li class="flex gap-x-4 py-5">
+              <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <div class="min-w-0">
+                <p class="text-sm font-semibold leading-6 text-white">Leslie Alexander</p>
+                <p class="mt-1 truncate text-xs leading-5 text-white">leslie.alexander@example.com</p>
+              </div>
+            </li>
+            <li class="flex gap-x-4 py-5">
+              <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <div class="min-w-0">
+                <p class="text-sm font-semibold leading-6 text-white">Leslie Alexander</p>
+                <p class="mt-1 truncate text-xs leading-5 text-white">leslie.alexander@example.com</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
