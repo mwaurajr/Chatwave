@@ -1,3 +1,8 @@
-<h1>Your Verification Code</h1>
-<p>Your verification code is: <%= @user.pin %></p>
-<p>Please use this code to verify your registration.</p>
+<h1>Email Verification Required</h1>
+<p>Dear <%= @user_name %>,</p>
+<p>Thank you for signing up with ChatWave! We are thrilled to have you on board.</p>
+<p>Your verification code is: <strong><%= @user.pin %></strong></p>
+<p>Please use this code to verify your email address and complete your registration. We look forward to connecting with you.</p>
+<p>If you did not sign up for ChatWave, please ignore this email.</p>
+<p>Best regards,</p>
+<p>The ChatWave Team</p>

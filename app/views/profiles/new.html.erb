@@ -1,0 +1,31 @@
+<%= form_for(@profile, url: profiles_path, method: :post, html: {class: "max-w-md mx-auto p-8"}) do |f| %>
+  <%= render "devise/shared/error_messages", resource: @profile %>
+
+  <div class="mb-4">
+    <%= f.label :username, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.text_field :username, placeholder: "Username", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div>
+
+  <div class="mb-4 hidden">
+    <%= f.label :status, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <div class="grid grid-cols-3 gap-4">
+      <% Profile::STATUS_EMOJIS.each do |emoji| %>
+        <label class="flex items-center">
+          <%= f.radio_button :status, emoji, class: "hidden" %>
+          <div class="p-4 rounded-md hover:bg-gray-300 cursor-pointer <%= (f.object.status == emoji) ? "bg-indigo-300" : "bg-gray-200" %>">
+            <%= emoji %>
+          </div>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :about, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.text_area :about, placeholder: "About", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div>
+
+  <div class="flex items-center justify-center">
+    <%= f.submit "Create Profile", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>

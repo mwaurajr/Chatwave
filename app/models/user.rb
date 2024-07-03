@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable
 
+  has_one :profile, dependent: :destroy
+
   # Callbacks
   after_create :update_user_verified_column_to_true
   after_create :send_pin!
