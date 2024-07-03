@@ -1,9 +1,9 @@
-<div>
-    <div class="w-full h-32" style="background-color: #45C0F5"></div>
-
+<div class="p-4">
+<h1 class="text-white text-2xl font-bold"> Chats </h1>
+  <div class="w-full h-32"></div>
     <div class="container mx-auto" style="margin-top: -128px;">
         <div class="py-6 h-screen">
-
+          <% profiles.each do  |profile| %>
             <div class="bg-grey-lighter flex-1 overflow-auto">
                 <div class="px-3 flex items-center bg-grey-light cursor-pointer">
                     <div>
@@ -11,20 +11,26 @@
                     </div>
                     <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
                         <div class="flex items-bottom justify-between">
-                            <p class="text-grey-darkest">
-                                New Movie! Expendables 4
+                          <% if profile.user == current_user %>
+                            <p class="text-white">
+                              <%= profile.username %> (You)
                             </p>
-                            <p class="text-xs text-grey-darkest">
+                          <% else %>
+                            <p class="text-white">
+                              <%= profile.username %>
+                            </p>
+                          <% end %>
+                            <p class="text-xs text-white">
                                 12:45 pm
                             </p>
                         </div>
-                        <p class="text-grey-dark mt-1 text-sm">
+                        <p class="text-white mt-1 text-sm">
                             Get Andrés on this movie ASAP!
                         </p>
                     </div>
                 </div>
             </div>
-
+          <% end %>
         </div>
     </div>
 </div>

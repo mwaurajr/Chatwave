@@ -1,7 +1,13 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
+  def index
+    @profiles = Profile.all
+  end
+
   def show
+    @profiles = Profile.all
+
     @profile = Profile.find_by(username: params[:username])
     if @profile.nil?
       redirect_to root_path, alert: "Profile not found."
