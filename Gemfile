@@ -74,7 +74,7 @@ gem "image_processing"
 gem "aws-sdk-s3", require: false
 
 # Deploy to servers with ease
-gem "kamal", "~> 1.3.0"
+gem "kamal", "~> 2.0.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
